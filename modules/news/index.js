@@ -1,0 +1,1 @@
+exports.News = require('./models/news');
