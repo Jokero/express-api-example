@@ -1,3 +1,3 @@
 express-api
 ===========
-ExpressJs REST API example
+ExpressJS REST API example
