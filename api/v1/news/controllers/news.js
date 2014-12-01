@@ -1,5 +1,5 @@
-var News      = require('modules/news').News;
-var HttpError = require('libs/httpError');
+var News               = require('modules/news').News;
+var ApiBadRequestError = require('libs/errors/api/badRequest');
 
 exports.index = function(req, res, next) {
     News.find(function(err, news) {
@@ -19,7 +19,7 @@ exports.post = function(req, res, next) {
         if (err) {
             if (err.name === 'ValidationError') {
                 // field must be set
-                next(new HttpError(400, 'Validation error'));
+                next(new ApiBadRequestError('Validation error'));
             } else {
                 next(err);
             }
@@ -43,7 +43,7 @@ exports.put = function(req, res, next) {
         if (err) {
             if (err.name === 'ValidationError') {
                 // field must be set
-                next(new HttpError(400, 'Validation error'));
+                next(new ApiBadRequestError('Validation error'));
             } else {
                 next(err);
             }
@@ -62,7 +62,7 @@ exports.patch = function(req, res, next) {
         if (err) {
             if (err.name === 'ValidationError') {
                 // field must be set
-                next(new HttpError(400, 'Validation error'));
+                next(new ApiBadRequestError('Validation error'));
             } else {
                 next(err);
             }

@@ -1,5 +1,4 @@
-var Link      = require('modules/news').Link;
-var HttpError = require('libs/httpError');
+var Link = require('modules/news').Link;
 
 exports.index = function(req, res, next) {
     Link.find(function(err, links) {

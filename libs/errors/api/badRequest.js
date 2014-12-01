@@ -1,17 +1,8 @@
-var path = require('path');
-var util = require('util');
-var http = require('http');
+var ApiError = require('../api');
 
-function HttpError(status, message) {
-    Error.apply(this, arguments);
-    Error.captureStackTrace(this, HttpError);
-
-    this.status  = status;
-    this.message = message || http.STATUS_CODES[status];
+function ApiBadRequestError(message, code) {
+    ApiError.call(this, 404, code || ApiError.ERRORS_CODES.BAD_REQUEST, message);
 }
+util.inherits(ApiBadRequestError, ApiError);
 
-util.inherits(HttpError, Error);
-
-HttpError.prototype.name = 'HttpError';
-
-module.exports = HttpError;
+module.exports = ApiBadRequestError;

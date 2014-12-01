@@ -1,17 +1,30 @@
-var path = require('path');
 var util = require('util');
-var http = require('http');
 
-function ApiError(status, message) {
+function ApiError(httpStatus, code, message) {
     Error.apply(this, arguments);
     Error.captureStackTrace(this, ApiError);
 
-    this.status  = status;
-    this.message = message || http.STATUS_CODES[status];
+    this.httpStatus = httpStatus;
+    this.code       = code;
+    this.message    = message;
+    this.data       = {};
 }
+
+ApiError.prototype.toJSON = function() {
+    return {
+        code:    this.code,
+        message: this.message
+    };
+};
 
 util.inherits(ApiError, Error);
 
 ApiError.prototype.name = 'ApiError';
 
 module.exports = ApiError;
+
+exports.ERRORS_CODES = {
+    SERVER_ERROR: 10,
+    BAD_REQUEST:  11,
+    NOT_FOUND:    12
+};
