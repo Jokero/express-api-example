@@ -2,16 +2,16 @@ var path = require('path');
 var util = require('util');
 var http = require('http');
 
-function HttpError(status, message) {
+function ApiError(status, message) {
     Error.apply(this, arguments);
-    Error.captureStackTrace(this, HttpError);
+    Error.captureStackTrace(this, ApiError);
 
     this.status  = status;
     this.message = message || http.STATUS_CODES[status];
 }
 
-util.inherits(HttpError, Error);
+util.inherits(ApiError, Error);
 
-HttpError.prototype.name = 'HttpError';
+ApiError.prototype.name = 'ApiError';
 
-module.exports = HttpError;
+module.exports = ApiError;
