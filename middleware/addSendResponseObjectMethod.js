@@ -16,7 +16,7 @@ function getMappedObject(object, map) {
 }
 
 module.exports = function(req, res, next) {
-    res.sendResponseObject = function(objectOrArray, map) {
+    res.sendResponseObject = function(objectOrArray, map, httpStatus) {
         var response;
         if (!_.isArray(objectOrArray)) {
             response = getMappedObject(objectOrArray, map);
@@ -27,7 +27,7 @@ module.exports = function(req, res, next) {
             });
         }
 
-        res.sendResponseData(response);
+        res.sendResponseData(response, httpStatus);
     };
     next();
 };

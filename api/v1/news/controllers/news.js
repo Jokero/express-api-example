@@ -27,7 +27,7 @@ exports.post = function(req, res, next) {
             return;
         }
 
-        res.sendResponseObject(pieceOfNews, map);
+        res.sendResponseObject(pieceOfNews, map, 201);
     });
 };
 
