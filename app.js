@@ -5,6 +5,7 @@ var addSendResponseDataMethod   = require('./middleware/addSendResponseDataMetho
 var addSendResponseObjectMethod = require('./middleware/addSendResponseObjectMethod');
 var addSendErrorMethod          = require('./middleware/addSendErrorMethod');
 var loadRouters                 = require('./lib/loadRouters');
+var errorHandler                = require('./lib/errorHandler');
 
 var app = express();
 app.use(addSendResponseDataMethod);
