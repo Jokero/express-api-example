@@ -1,4 +1,4 @@
-var mongoose = require('libs/mongoose');
+var mongoose = require('lib/mongoose');
 
 var Request = mongoose.model('Request', mongoose.Schema({
     text:      {

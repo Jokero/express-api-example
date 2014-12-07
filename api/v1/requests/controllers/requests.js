@@ -1,5 +1,6 @@
-var Request   = require('modules/requests').Request;
-var HttpError = require('libs/httpError');
+var Request            = require('modules/requests').Request;
+var map                = require('../maps/request');
+var BadRequestApiError = require('lib/apiError/badRequest');
 
 exports.index = function(req, res, next) {
     Request.find(function(err, requests) {
@@ -7,7 +8,7 @@ exports.index = function(req, res, next) {
             next(err);
             return;
         }
-        res.json({ data: requests });
+        res.sendResponseObject(requests, map);
     });
 };
 
@@ -19,20 +20,19 @@ exports.post = function(req, res, next) {
         if (err) {
             if (err.name === 'ValidationError') {
                 // field must be set
-                next(new HttpError(400, 'Validation error'));
+                next(new BadRequestApiError('Validation error'));
             } else {
                 next(err);
             }
             return;
         }
 
-        res.json({ data: request });
+        res.sendResponseObject(request, map);
     });
 };
 
 exports.get = function(req, res) {
-    var request = req.object;
-    res.json({ data: request });
+    res.sendResponseObject(req.object, map);
 };
 
 exports.put = function(req, res, next) {
@@ -43,14 +43,14 @@ exports.put = function(req, res, next) {
         if (err) {
             if (err.name === 'ValidationError') {
                 // field must be set
-                next(new HttpError(400, 'Validation error'));
+                next(new BadRequestApiError('Validation error'));
             } else {
                 next(err);
             }
             return;
         }
 
-        res.json({ data: request });
+        res.sendResponseObject(request, map);
     });
 };
 
@@ -62,14 +62,14 @@ exports.patch = function(req, res, next) {
         if (err) {
             if (err.name === 'ValidationError') {
                 // field must be set
-                next(new HttpError(400, 'Validation error'));
+                next(new BadRequestApiError('Validation error'));
             } else {
                 next(err);
             }
             return;
         }
 
-        res.json({ data: request });
+        res.sendResponseObject(request, map);
     });
 };
 
@@ -80,6 +80,6 @@ exports.delete = function(req, res, next) {
             next(err);
             return;
         }
-        res.json({ data: true });
+        res.sendResponseData(true);
     });
 };

@@ -1,1 +1,1 @@
-exports.News = require('./models/news');
+exports.PieceOfNews = require('./models/pieceOfNews');

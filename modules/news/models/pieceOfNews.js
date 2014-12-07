@@ -1,6 +1,6 @@
-var mongoose = require('libs/mongoose');
+var mongoose = require('lib/mongoose');
 
-var News = mongoose.model('News', mongoose.Schema({
+var PieceOfNews = mongoose.model('News', mongoose.Schema({
     text: {
         type:     String,
         required: true
@@ -11,4 +11,4 @@ var News = mongoose.model('News', mongoose.Schema({
     }
 }));
 
-module.exports = News;
+module.exports = PieceOfNews;

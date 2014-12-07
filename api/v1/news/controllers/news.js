@@ -1,85 +1,85 @@
-var News               = require('modules/news').News;
-var ApiBadRequestError = require('libs/errors/api/badRequest');
+var PieceOfNews        = require('modules/news').PieceOfNews;
+var map                = require('../maps/news');
+var BadRequestApiError = require('lib/apiError/badRequest');
 
 exports.index = function(req, res, next) {
-    News.find(function(err, news) {
+    PieceOfNews.find(function(err, news) {
         if (err) {
             next(err);
             return;
         }
-        res.json({ data: news });
+        res.sendResponseObject(news, map);
     });
 };
 
 exports.post = function(req, res, next) {
-    var news = new News({
+    var news = new PieceOfNews({
         text: req.body.text
     });
-    news.save(function (err, news) {
+    news.save(function (err, pieceOfNews) {
         if (err) {
             if (err.name === 'ValidationError') {
                 // field must be set
-                next(new ApiBadRequestError('Validation error'));
+                next(new BadRequestApiError('Validation error'));
             } else {
                 next(err);
             }
             return;
         }
 
-        res.json({ data: news });
+        res.sendResponseObject(pieceOfNews, map);
     });
 };
 
 exports.get = function(req, res) {
-    var news = req.object;
-    res.json({ data: news });
+    res.sendResponseObject(req.object);
 };
 
 exports.put = function(req, res, next) {
-    var news  = req.object;
-    news.text = req.body.text;
+    var pieceOfNews  = req.object;
+    pieceOfNews.text = req.body.text;
 
-    news.save(function(err, news) {
+    pieceOfNews.save(function(err, pieceOfNews) {
         if (err) {
             if (err.name === 'ValidationError') {
                 // field must be set
-                next(new ApiBadRequestError('Validation error'));
+                next(new BadRequestApiError('Validation error'));
             } else {
                 next(err);
             }
             return;
         }
 
-        res.json({ data: news });
+        res.sendResponseObject(pieceOfNews, map);
     });
 };
 
 exports.patch = function(req, res, next) {
-    var news  = req.object;
-    news.text = req.body.text;
+    var pieceOfNews  = req.object;
+    pieceOfNews.text = req.body.text;
 
-    news.save(function(err, news) {
+    pieceOfNews.save(function(err, news) {
         if (err) {
             if (err.name === 'ValidationError') {
                 // field must be set
-                next(new ApiBadRequestError('Validation error'));
+                next(new BadRequestApiError('Validation error'));
             } else {
                 next(err);
             }
             return;
         }
 
-        res.json({ data: news });
+        res.sendResponseObject(pieceOfNews, map);
     });
 };
 
 exports.delete = function(req, res) {
-    var news = req.object;
-    news.remove(function(err) {
+    var pieceOfNews = req.object;
+    pieceOfNews.remove(function(err) {
         if (err) {
             next(err);
             return;
         }
-        res.json({ data: true });
+        res.sendResponseData(true);
     });
 };

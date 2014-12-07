@@ -1,11 +1,11 @@
 var express = require('express');
 var router  = express.Router();
 
-var News        = require('modules/requests').News;
+var PieceOfNews = require('modules/requests').PieceOfNews;
 var fetchObject = require('middleware/fetchObject');
 var controller  = require('../controllers/news');
 
-router.use('/news', fetchObject(News));
+router.use('/news', fetchObject(PieceOfNews));
 
 router.get('/news', controller.index);
 router.post('/news', controller.post);

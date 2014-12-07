@@ -5,7 +5,7 @@ var Request     = require('modules/requests').Request;
 var fetchObject = require('middleware/fetchObject');
 var controller  = require('../controllers/requests');
 
-router.use('/requests', fetchObject(Request));
+router.use('/requests/:id', fetchObject(Request));
 
 router.get('/requests', controller.index);
 router.post('/requests', controller.post);

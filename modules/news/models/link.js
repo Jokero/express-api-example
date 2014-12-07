@@ -1,4 +1,4 @@
-var mongoose = require('libs/mongoose');
+var mongoose = require('lib/mongoose');
 
 var Link = mongoose.model('Link', mongoose.Schema({
     text: {
