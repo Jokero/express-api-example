@@ -1,29 +1,17 @@
-var _ = require('lodash');
-
-function mapObject(object, map) {
-    var objectData   = object.toJSON({ virtuals: true });
-    var mappedObject = {};
-
-    _.forOwn(objectData, function(value, key) {
-        if (map[key] === true) {
-            mappedObject[key] = value;
-        } else if (_.isFunction(map[key])) {
-            mappedObject[key] = map[key](value);
-        }
-    });
-
-    return mappedObject;
-}
+var _         = require('lodash');
+var mapObject = require('../lib/mapObject');
 
 module.exports = function(req, res, next) {
     res.sendResponseObject = function(objectOrArray, map, httpStatus) {
-        var response;
+        var response, objectData;
         if (!_.isArray(objectOrArray)) {
-            response = mapObject(objectOrArray, map);
+            objectData = objectOrArray.toJSON({ virtuals: true });
+            response   = mapObject(objectData, map);
         } else {
             response = [];
             objectOrArray.forEach(function(object) {
-                response.push(mapObject(object, map));
+                objectData = object.toJSON({ virtuals: true });
+                response.push(mapObject(objectData, map));
             });
         }
 
