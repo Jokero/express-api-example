@@ -1,6 +1,6 @@
 var _ = require('lodash');
 
-function getMappedObject(object, map) {
+function mapObject(object, map) {
     var objectData   = object.toJSON({ virtuals: true });
     var mappedObject = {};
 
@@ -19,11 +19,11 @@ module.exports = function(req, res, next) {
     res.sendResponseObject = function(objectOrArray, map, httpStatus) {
         var response;
         if (!_.isArray(objectOrArray)) {
-            response = getMappedObject(objectOrArray, map);
+            response = mapObject(objectOrArray, map);
         } else {
             response = [];
             objectOrArray.forEach(function(object) {
-                response.push(getMappedObject(object, map));
+                response.push(mapObject(object, map));
             });
         }
 

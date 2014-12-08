@@ -1,6 +1,6 @@
 var mongoose = require('lib/mongoose');
 
-var Link = mongoose.model('Link', mongoose.Schema({
+var linkSchema = mongoose.Schema({
     text: {
         type:     String,
         required: true
@@ -13,6 +13,12 @@ var Link = mongoose.model('Link', mongoose.Schema({
         type:    Date,
         default: Date.now
     }
-}));
+}, { id: false });
+
+var Link = mongoose.model('Link', linkSchema);
+
+linkSchema.virtual('id').get(function() {
+    return this._id;
+});
 
 module.exports = Link;
