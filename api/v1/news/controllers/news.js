@@ -1,5 +1,5 @@
 var PieceOfNews        = require('modules/news').PieceOfNews;
-var map                = require('../maps/news');
+var map                = require('../maps/pieceOfNews');
 var BadRequestApiError = require('lib/apiError/badRequest');
 
 exports.index = function(req, res, next) {
